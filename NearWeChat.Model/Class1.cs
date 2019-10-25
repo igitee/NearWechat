@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NearWeChat.Facade
+namespace NearWeChat.Model
 {
     public class Class1
     {
