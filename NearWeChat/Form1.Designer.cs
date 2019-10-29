@@ -58,10 +58,11 @@
             // 
             // tb_log
             // 
-            this.tb_log.Location = new System.Drawing.Point(12, 635);
+            this.tb_log.Location = new System.Drawing.Point(12, 566);
             this.tb_log.Multiline = true;
             this.tb_log.Name = "tb_log";
-            this.tb_log.Size = new System.Drawing.Size(1138, 162);
+            this.tb_log.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tb_log.Size = new System.Drawing.Size(1138, 231);
             this.tb_log.TabIndex = 1;
             // 
             // btn_login_pc
@@ -170,7 +171,7 @@
             // 
             this.groupBox3.Location = new System.Drawing.Point(12, 304);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1138, 310);
+            this.groupBox3.Size = new System.Drawing.Size(1138, 256);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "操 作";

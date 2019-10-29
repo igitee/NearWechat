@@ -24,17 +24,20 @@ namespace NearWechat.Common
 
             foreach (var item in array)
             {
+                if (string.IsNullOrEmpty(item))
+                {
+                    continue;
+                }
                 string key, value;
 
                 if (item.Split('=').Length > 1)
                 {
                     key = item.Substring(0, item.IndexOf('='));
-                    value = item.Substring(item.IndexOf('='), item.Length);
+                    value = item.Substring(item.IndexOf('=')+1);
                 }
                 else {
                     key = item.Split('=')[0];
                     value = item.Split('=')[1];
-
                 }
 
                 dic.Add(key, value);

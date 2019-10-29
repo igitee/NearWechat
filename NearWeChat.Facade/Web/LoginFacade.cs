@@ -15,8 +15,8 @@ namespace NearWeChat.Facade.Web
         public string GetLoginQrCode(string api,ref string uuid)
         {
          
-            HttpHelper httpHelper = new NearWechat.Common.HttpHelper();
-            string result= httpHelper.HttpGet(api, string.Empty);
+      
+            string result= HttpHelper.HttpGet(api, string.Empty);
 
             string code = result.Split(';')[0].Split('=')[1].Trim();
             uuid= result.Split(';')[1].Split('=')[1].Trim().Trim('"').Trim(';')+"==";
