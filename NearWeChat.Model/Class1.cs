@@ -8,5 +8,7 @@ namespace NearWeChat.Model
 {
     public class Class1
     {
+        
+
     }
 }

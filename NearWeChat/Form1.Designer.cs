@@ -36,6 +36,13 @@
             this.btn_login_account_IOS = new System.Windows.Forms.Button();
             this.btn_login_web = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_friend_list = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_add_friend = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btn_login_Ipad = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.用户名 = new System.Windows.Forms.Label();
@@ -45,6 +52,10 @@
             this.btn_login_mac = new System.Windows.Forms.Button();
             this.btn_login_account_Android = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.img_qrcode_web)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // img_qrcode_web
@@ -67,7 +78,7 @@
             // 
             // btn_login_pc
             // 
-            this.btn_login_pc.Location = new System.Drawing.Point(652, 68);
+            this.btn_login_pc.Location = new System.Drawing.Point(896, 198);
             this.btn_login_pc.Name = "btn_login_pc";
             this.btn_login_pc.Size = new System.Drawing.Size(228, 34);
             this.btn_login_pc.TabIndex = 2;
@@ -84,20 +95,20 @@
             // 
             // btn_login_62
             // 
-            this.btn_login_62.Location = new System.Drawing.Point(652, 16);
+            this.btn_login_62.Location = new System.Drawing.Point(896, 108);
             this.btn_login_62.Name = "btn_login_62";
             this.btn_login_62.Size = new System.Drawing.Size(228, 34);
             this.btn_login_62.TabIndex = 4;
-            this.btn_login_62.Text = "62登录";
+            this.btn_login_62.Text = "62数据登录";
             this.btn_login_62.UseVisualStyleBackColor = true;
             // 
             // btn_login_account_IOS
             // 
-            this.btn_login_account_IOS.Location = new System.Drawing.Point(652, 167);
+            this.btn_login_account_IOS.Location = new System.Drawing.Point(896, 158);
             this.btn_login_account_IOS.Name = "btn_login_account_IOS";
             this.btn_login_account_IOS.Size = new System.Drawing.Size(228, 34);
             this.btn_login_account_IOS.TabIndex = 9;
-            this.btn_login_account_IOS.Text = "IOS账户登录";
+            this.btn_login_account_IOS.Text = "IOS-账户登录";
             this.btn_login_account_IOS.UseVisualStyleBackColor = true;
             // 
             // btn_login_web
@@ -112,6 +123,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.tabControl1);
             this.groupBox3.Location = new System.Drawing.Point(12, 276);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1138, 278);
@@ -119,13 +131,83 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "操 作";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Location = new System.Drawing.Point(6, 20);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1126, 243);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.btn_friend_list);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1118, 217);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "信息操作";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_friend_list
+            // 
+            this.btn_friend_list.Location = new System.Drawing.Point(15, 20);
+            this.btn_friend_list.Name = "btn_friend_list";
+            this.btn_friend_list.Size = new System.Drawing.Size(75, 23);
+            this.btn_friend_list.TabIndex = 0;
+            this.btn_friend_list.Text = "好友列表";
+            this.btn_friend_list.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.btn_add_friend);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1118, 217);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "好友操作";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btn_add_friend
+            // 
+            this.btn_add_friend.Location = new System.Drawing.Point(20, 15);
+            this.btn_add_friend.Name = "btn_add_friend";
+            this.btn_add_friend.Size = new System.Drawing.Size(75, 23);
+            this.btn_add_friend.TabIndex = 0;
+            this.btn_add_friend.Text = "添加好友";
+            this.btn_add_friend.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1118, 217);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "支付操作";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1118, 217);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "功能操作";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // btn_login_Ipad
             // 
-            this.btn_login_Ipad.Location = new System.Drawing.Point(652, 117);
+            this.btn_login_Ipad.Location = new System.Drawing.Point(639, 16);
             this.btn_login_Ipad.Name = "btn_login_Ipad";
             this.btn_login_Ipad.Size = new System.Drawing.Size(228, 34);
             this.btn_login_Ipad.TabIndex = 15;
-            this.btn_login_Ipad.Text = "Ipad-账户登录";
+            this.btn_login_Ipad.Text = "Ipad-账户登录-二维码";
             this.btn_login_Ipad.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -182,11 +264,11 @@
             // 
             // btn_login_account_Android
             // 
-            this.btn_login_account_Android.Location = new System.Drawing.Point(652, 219);
+            this.btn_login_account_Android.Location = new System.Drawing.Point(896, 236);
             this.btn_login_account_Android.Name = "btn_login_account_Android";
             this.btn_login_account_Android.Size = new System.Drawing.Size(228, 34);
             this.btn_login_account_Android.TabIndex = 18;
-            this.btn_login_account_Android.Text = "Android账户登录";
+            this.btn_login_account_Android.Text = "Android-账户登录";
             this.btn_login_account_Android.UseVisualStyleBackColor = true;
             // 
             // Form1
@@ -213,6 +295,10 @@
             this.Name = "Form1";
             this.Text = "NearWeChat";
             ((System.ComponentModel.ISupportInitialize)(this.img_qrcode_web)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,6 +322,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_login_mac;
         private System.Windows.Forms.Button btn_login_account_Android;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button btn_friend_list;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btn_add_friend;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }
 
