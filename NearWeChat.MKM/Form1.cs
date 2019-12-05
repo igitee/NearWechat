@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using System.Windows.Forms;
+using ZXing;
 
 namespace NearWeChat.MKM
 {
@@ -17,7 +19,7 @@ namespace NearWeChat.MKM
 
 
         System.Timers.Timer Timer_CheckLogin = new System.Timers.Timer();
-        object Lock_Islogin = new object();
+        private static readonly object Lock_Islogin = new object();
         public Form1()
         {
             InitializeComponent();
@@ -57,6 +59,8 @@ namespace NearWeChat.MKM
 
         private void Timer_CheckLogin_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+          
+
             lock (Lock_Islogin) {
 
                 Facade.LoginFacde loginFacde = new Facade.LoginFacde();
@@ -98,10 +102,46 @@ namespace NearWeChat.MKM
                 Log("Email====" + ResposecheckLogin.Data.Email);
                 Log("Alias====" + ResposecheckLogin.Data.Alias);
 
-                this.lb_Wxid.Text = ResposecheckLogin.Data.WxId;
+                SetWwId( ResposecheckLogin.Data.WxId);
+
+
                 Timer_CheckLogin.Stop();
+
+
+                System.Timers.Timer Timer_CheckLogin_Heatbeat = new System.Timers.Timer();
+                Timer_CheckLogin_Heatbeat.Elapsed += Timer_CheckLogin_Elapsed1;
+                Timer_CheckLogin_Heatbeat.Interval = 10000;
+                Timer_CheckLogin_Heatbeat.Start();
             }
         }
+
+        private void Timer_CheckLogin_Elapsed1(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            string uuid = this.lb_Uuid.Text;
+            string wwxid = this.lb_Wxid.Text;
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string json = string.Empty;
+            loginFacde.HeartBeat(ref json, wwxid);
+
+            Log2(json);
+
+        }
+
+        private void SetWwId(string text)
+        {
+            if (lb_Wxid.InvokeRequired)
+            {
+                Action<string> action = new Action<string>(SetWwId);
+                Invoke(action, new object[] { text });
+            }
+            else
+            {
+                lb_Wxid.Text = text;
+                //定位到最后一行
+            }
+        }
+
+
 
         private void Log(string text)
         {
@@ -118,9 +158,55 @@ namespace NearWeChat.MKM
             }
         }
 
+
+        private void Log2(string text)
+        {
+            if (tb_log.InvokeRequired)
+            {
+                Action<string> action = new Action<string>(Log2);
+                Invoke(action, new object[] { text });
+            }
+            else
+            {
+                tb_heart.Text += "\r\n";
+                tb_heart.AppendText(text);
+                //定位到最后一行
+            }
+        }
+
         private void Btn_debug_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void Btn_liulan_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = true;//该值确定是否可以选择多个文件
+            dialog.Title = "请选择文件夹";
+            dialog.Filter = "(*.jpg,*.png,*.jpeg,*.bmp,*.gif)|*.jgp;*.png;*.jpeg;*.bmp;*.gif|All files(*.*)|*.*";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string file = dialog.FileName;
+                this.pic_scan.ImageLocation = dialog.FileName;
+
+                BarcodeReader reader = new BarcodeReader();
+                reader.Options.CharacterSet = "UTF-8";
+                Bitmap map = new Bitmap(file);
+                Result result = reader.Decode(map);
+                Log("识别二维码：" + result.Text);
+            }
+        }
+
+        private void Btn_scan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+
         }
     }
 }

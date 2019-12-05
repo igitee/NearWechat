@@ -38,10 +38,8 @@ namespace NearWeChat.MKM.Facade
 
         public bool CheckLogin(ref Models.Response.ResponseBase<Models.Response.CheckLogin> ResponseModel, string Uuid)
         {
-
             try
             {
-
               
                 string json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Login_CheckLogin+"/"+Uuid, string.Empty);
 
@@ -58,7 +56,24 @@ namespace NearWeChat.MKM.Facade
 
         }
 
+        public bool HeartBeat(ref string json,string Wwid)
+        {
 
+            try
+            {
+
+                 json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Login_HeartBeat + "/" + Wwid, string.Empty);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+
+        }
 
     }
 }
