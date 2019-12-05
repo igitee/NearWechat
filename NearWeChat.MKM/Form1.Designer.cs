@@ -34,12 +34,15 @@
             this.pic_scan = new System.Windows.Forms.PictureBox();
             this.btn_scan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_heart = new System.Windows.Forms.TextBox();
             this.tb_log = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_loginout = new System.Windows.Forms.Button();
+            this.btn_NewInit = new System.Windows.Forms.Button();
             this.btn_get62 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btn_foiiow = new System.Windows.Forms.Button();
@@ -61,11 +64,11 @@
             this.tb_username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_NewInit = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btn_twcLogin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -73,7 +76,6 @@
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_getqrcode
@@ -123,6 +125,16 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "浏览器";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(319, 773);
+            this.dataGridView1.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -176,6 +188,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_twcLogin);
+            this.tabPage1.Controls.Add(this.btn_loginout);
             this.tabPage1.Controls.Add(this.btn_NewInit);
             this.tabPage1.Controls.Add(this.btn_get62);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -185,6 +199,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Login";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_loginout
+            // 
+            this.btn_loginout.Location = new System.Drawing.Point(23, 148);
+            this.btn_loginout.Name = "btn_loginout";
+            this.btn_loginout.Size = new System.Drawing.Size(111, 26);
+            this.btn_loginout.TabIndex = 2;
+            this.btn_loginout.Text = "退出登录";
+            this.btn_loginout.UseVisualStyleBackColor = true;
+            this.btn_loginout.Click += new System.EventHandler(this.Btn_loginout_Click);
+            // 
+            // btn_NewInit
+            // 
+            this.btn_NewInit.Location = new System.Drawing.Point(23, 20);
+            this.btn_NewInit.Name = "btn_NewInit";
+            this.btn_NewInit.Size = new System.Drawing.Size(111, 26);
+            this.btn_NewInit.TabIndex = 1;
+            this.btn_NewInit.Text = "初始化用户信息";
+            this.btn_NewInit.UseVisualStyleBackColor = true;
             // 
             // btn_get62
             // 
@@ -347,6 +380,7 @@
             this.tb_62.Name = "tb_62";
             this.tb_62.Size = new System.Drawing.Size(210, 89);
             this.tb_62.TabIndex = 12;
+            this.tb_62.Text = resources.GetString("tb_62.Text");
             // 
             // btn_login
             // 
@@ -365,6 +399,7 @@
             this.tb_pwd.Name = "tb_pwd";
             this.tb_pwd.Size = new System.Drawing.Size(210, 28);
             this.tb_pwd.TabIndex = 11;
+            this.tb_pwd.Text = "13054134167g";
             // 
             // tb_username
             // 
@@ -373,6 +408,7 @@
             this.tb_username.Name = "tb_username";
             this.tb_username.Size = new System.Drawing.Size(210, 28);
             this.tb_username.TabIndex = 10;
+            this.tb_username.Text = "demon2019ww";
             // 
             // label4
             // 
@@ -392,24 +428,14 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "账号：";
             // 
-            // btn_NewInit
+            // btn_twcLogin
             // 
-            this.btn_NewInit.Location = new System.Drawing.Point(23, 20);
-            this.btn_NewInit.Name = "btn_NewInit";
-            this.btn_NewInit.Size = new System.Drawing.Size(111, 26);
-            this.btn_NewInit.TabIndex = 1;
-            this.btn_NewInit.Text = "初始化用户信息";
-            this.btn_NewInit.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(319, 773);
-            this.dataGridView1.TabIndex = 0;
+            this.btn_twcLogin.Location = new System.Drawing.Point(23, 104);
+            this.btn_twcLogin.Name = "btn_twcLogin";
+            this.btn_twcLogin.Size = new System.Drawing.Size(111, 26);
+            this.btn_twcLogin.TabIndex = 3;
+            this.btn_twcLogin.Text = "二次确认";
+            this.btn_twcLogin.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -432,6 +458,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -442,7 +469,6 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -483,6 +509,8 @@
         private System.Windows.Forms.TextBox tb_username;
         private System.Windows.Forms.Button btn_NewInit;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btn_loginout;
+        private System.Windows.Forms.Button btn_twcLogin;
     }
 }
 

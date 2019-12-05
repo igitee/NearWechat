@@ -29,7 +29,7 @@ namespace NearWeChat.MKM
         private void Btn_getqrcode_Click(object sender, EventArgs e)
         {
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
-            LoginQrCode postData = new LoginQrCode() { ProxyIp = "", DeviceId = "", ProxyUserName = "", ProxyPassword = "" };
+            LoginQrCode postData = new LoginQrCode() { ProxyIp = Config.ProxyConfig.Ip, DeviceId = Config.ProxyConfig.DeviceId, ProxyUserName = Config.ProxyConfig.UserName, ProxyPassword = Config.ProxyConfig.UserPwd };
             Models.Response.LoginQrCode Responsemodel = new Models.Response.LoginQrCode();
             if (!loginFacde.GetLoginQrCode(ref Responsemodel,postData))
             {
@@ -41,6 +41,7 @@ namespace NearWeChat.MKM
             if (!Responsemodel.Success)
             {
                 Log(Responsemodel.Message+":"+Responsemodel.Code);
+                return;
             }
 
             Image qrcode = Tool.ImageHelper.resizeImage(Tool.ImageHelper.Base64StringToImage(Responsemodel.Data.QrBase64), 200, 200);
@@ -121,14 +122,14 @@ namespace NearWeChat.MKM
             string uuid = this.lb_Uuid.Text;
             string wwxid = this.lb_Wxid.Text;
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
-            string json = string.Empty;
-            if (!loginFacde.HeartBeat(ref json, wwxid))
+            Models.Response.ResponseBase<Models.Response.HeartBeat> ResponseModel = new Models.Response.ResponseBase<Models.Response.HeartBeat>();
+            if (!loginFacde.HeartBeat(ref ResponseModel, wwxid))
             {
                 Log("404网络异常，请检查ip或端口配置");
                 ((System.Timers.Timer)sender).Stop();
             }
 
-            Log2(json);
+            Log2(ResponseModel.Data.NextTime.ToString());
 
         }
 
@@ -243,12 +244,49 @@ namespace NearWeChat.MKM
 
         private void DataLogin()
         {
-           
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+         
+            Models.Request.Login62Data login62Requestl = new Login62Data();
+            login62Requestl.Data62= this.tb_62.Text;
+            login62Requestl.UserName = this.tb_username.Text;
+            login62Requestl.Password = this.tb_pwd.Text;
+            login62Requestl.ProxyIp = Config.ProxyConfig.Ip;
+            login62Requestl.ProxyUserName = Config.ProxyConfig.UserName;
+            login62Requestl.ProxyPassword = Config.ProxyConfig.UserPwd;
+
+
+             Models.Response.ResponseBase<Models.Response.Login62Data> login62Response = new Models.Response.ResponseBase<Models.Response.Login62Data>();
+            if (!loginFacde.LoginBy62(ref login62Response, login62Requestl))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+            if (!login62Response.Success)
+            {
+                Log(login62Response.Message);
+                return;
+            }
+            //TODO:序列号参数之后，打出Wwid
+            Log(login62Response.Data.ToString());
         }
 
         private void AccountLogin()
         {
-          
+            MessageBox.Show(" 暂不支持账号密码登录！");
+        }
+
+        private void Btn_loginout_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            string json = string.Empty;
+            if (!loginFacde.Get62Data(ref json, Wwid))
+            {
+                Log("404网络异常，请检查ip或端口配置");
+                return;
+            }
+
+            Log(json);
         }
     }
 }

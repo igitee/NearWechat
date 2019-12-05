@@ -20,5 +20,7 @@ namespace NearWeChat.MKM.Config
 
         public static string Login_62Data = "api/Login/Data62Login";
 
+        public static string LoginOut = "api/Login/LogOut";
+        
     }
 }
