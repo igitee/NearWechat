@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace NearWeChat.MKM.Facade
 {
-    public class LoginFacde
+    public class LoginFacde: FacadeBase
     {
-        public bool GetLoginQrCode(ref Models.Response.LoginQrCode Responsemodel)
+        public bool GetLoginQrCode(ref Models.Response.LoginQrCode Responsemodel, LoginQrCode postData)
         {
 
             try
             {
 
-                LoginQrCode postData = new LoginQrCode() { ProxyIp = "", DeviceId = "", ProxyUserName = "", ProxyPassword = "" };
+           
                 string json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Login_GetQrCode, postData.ToString());
 
                 Responsemodel = JsonConvert.DeserializeObject<Models.Response.LoginQrCode>(json);
@@ -75,5 +75,46 @@ namespace NearWeChat.MKM.Facade
 
         }
 
+        public bool Get62Data(ref string data62, string Wwid)
+        {
+
+            try
+            {
+
+                data62 = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Get62Data + "/" + Wwid, string.Empty);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+
+        }
+
+        public bool LoginBy62(ref Models.Response.Login62Data responseModel, Login62Data requestModel)
+        {
+
+            try
+            {
+                string requsetjson = JsonConvert.SerializeObject(requestModel);
+
+                string json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Login_GetQrCode, requsetjson);
+
+                responseModel = JsonConvert.DeserializeObject<Models.Response.Login62Data>(json);
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Msg = "404,网络异常请检查ip或端口";
+                return false;
+            }
+
+
+        }
     }
 }

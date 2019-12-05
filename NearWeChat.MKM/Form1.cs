@@ -1,4 +1,5 @@
 ﻿
+using NearWeChat.MKM.Models.Request;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,9 +29,9 @@ namespace NearWeChat.MKM
         private void Btn_getqrcode_Click(object sender, EventArgs e)
         {
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
-
+            LoginQrCode postData = new LoginQrCode() { ProxyIp = "", DeviceId = "", ProxyUserName = "", ProxyPassword = "" };
             Models.Response.LoginQrCode Responsemodel = new Models.Response.LoginQrCode();
-            if (!loginFacde.GetLoginQrCode(ref Responsemodel))
+            if (!loginFacde.GetLoginQrCode(ref Responsemodel,postData))
             {
                 Log("网络异常请求失败！");
                 return;
@@ -52,7 +53,7 @@ namespace NearWeChat.MKM
             this.lb_Uuid.Text = Responsemodel.Data.Uuid;
 
             Timer_CheckLogin.Elapsed += Timer_CheckLogin_Elapsed;
-            Timer_CheckLogin.Interval = 1000;
+            Timer_CheckLogin.Interval = 2000;
             Timer_CheckLogin.Start();
 
         }
@@ -121,7 +122,11 @@ namespace NearWeChat.MKM
             string wwxid = this.lb_Wxid.Text;
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
             string json = string.Empty;
-            loginFacde.HeartBeat(ref json, wwxid);
+            if (!loginFacde.HeartBeat(ref json, wwxid))
+            {
+                Log("404网络异常，请检查ip或端口配置");
+                ((System.Timers.Timer)sender).Stop();
+            }
 
             Log2(json);
 
@@ -207,6 +212,43 @@ namespace NearWeChat.MKM
         {
 
 
+        }
+
+        private void Btn_get62_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            
+     
+            string Wwid = this.lb_Wxid.Text;
+            string data62 = string.Empty;
+               
+            if (!loginFacde.Get62Data(ref data62, Wwid))
+            {
+                Log("404网络异常，请检查ip或端口配置");
+                return;
+            }
+
+            Log(data62);
+        }
+
+        private void Btn_login_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tb_62.Text))
+            {
+                AccountLogin();
+                return;
+            }
+            DataLogin();
+        }
+
+        private void DataLogin()
+        {
+           
+        }
+
+        private void AccountLogin()
+        {
+          
         }
     }
 }

@@ -16,7 +16,9 @@ namespace NearWeChat.MKM.Config
 
         public static string Login_HeartBeat = "api/Login/HeartBeat";
 
+        public static string Get62Data = "api/Login/Get62Data";
 
+        public static string Login_62Data = "api/Login/Data62Login";
 
     }
 }

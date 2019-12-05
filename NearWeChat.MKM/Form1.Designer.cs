@@ -34,14 +34,13 @@
             this.pic_scan = new System.Windows.Forms.PictureBox();
             this.btn_scan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_heart = new System.Windows.Forms.TextBox();
             this.tb_log = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_get62 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btn_foiiow = new System.Windows.Forms.Button();
             this.btn_vote = new System.Windows.Forms.Button();
@@ -57,11 +56,13 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_62 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_login = new System.Windows.Forms.Button();
             this.tb_pwd = new System.Windows.Forms.TextBox();
             this.tb_username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.btn_NewInit = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -72,6 +73,7 @@
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_getqrcode
@@ -114,20 +116,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.treeView1);
+            this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(855, 11);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(325, 793);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "浏览器";
-            // 
-            // treeView1
-            // 
-            this.treeView1.Location = new System.Drawing.Point(6, 20);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(313, 767);
-            this.treeView1.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -181,7 +176,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.btn_NewInit);
+            this.tabPage1.Controls.Add(this.btn_get62);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -190,14 +186,15 @@
             this.tabPage1.Text = "Login";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn_get62
             // 
-            this.button2.Location = new System.Drawing.Point(183, 23);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 26);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "提取62数据";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_get62.Location = new System.Drawing.Point(23, 62);
+            this.btn_get62.Name = "btn_get62";
+            this.btn_get62.Size = new System.Drawing.Size(111, 26);
+            this.btn_get62.TabIndex = 0;
+            this.btn_get62.Text = "提取62数据";
+            this.btn_get62.UseVisualStyleBackColor = true;
+            this.btn_get62.Click += new System.EventHandler(this.Btn_get62_Click);
             // 
             // tabPage2
             // 
@@ -322,12 +319,12 @@
             // 
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.tb_62);
-            this.groupBox5.Controls.Add(this.button1);
+            this.groupBox5.Controls.Add(this.btn_login);
             this.groupBox5.Controls.Add(this.tb_pwd);
             this.groupBox5.Controls.Add(this.tb_username);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Location = new System.Drawing.Point(242, 15);
+            this.groupBox5.Location = new System.Drawing.Point(242, 12);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(272, 221);
             this.groupBox5.TabIndex = 10;
@@ -351,14 +348,15 @@
             this.tb_62.Size = new System.Drawing.Size(210, 89);
             this.tb_62.TabIndex = 12;
             // 
-            // button1
+            // btn_login
             // 
-            this.button1.Location = new System.Drawing.Point(190, 186);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 29);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "登录";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_login.Location = new System.Drawing.Point(190, 186);
+            this.btn_login.Name = "btn_login";
+            this.btn_login.Size = new System.Drawing.Size(76, 29);
+            this.btn_login.TabIndex = 10;
+            this.btn_login.Text = "登录";
+            this.btn_login.UseVisualStyleBackColor = true;
+            this.btn_login.Click += new System.EventHandler(this.Btn_login_Click);
             // 
             // tb_pwd
             // 
@@ -394,6 +392,25 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "账号：";
             // 
+            // btn_NewInit
+            // 
+            this.btn_NewInit.Location = new System.Drawing.Point(23, 20);
+            this.btn_NewInit.Name = "btn_NewInit";
+            this.btn_NewInit.Size = new System.Drawing.Size(111, 26);
+            this.btn_NewInit.TabIndex = 1;
+            this.btn_NewInit.Text = "初始化用户信息";
+            this.btn_NewInit.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(319, 773);
+            this.dataGridView1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -425,6 +442,7 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -449,21 +467,22 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lb_Uuid;
         private System.Windows.Forms.Button btn_liulan;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.TextBox tb_heart;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_62;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_login;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_get62;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox tb_pwd;
         private System.Windows.Forms.TextBox tb_username;
+        private System.Windows.Forms.Button btn_NewInit;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
