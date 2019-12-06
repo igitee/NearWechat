@@ -147,6 +147,19 @@ namespace NearWeChat.MKM
             }
         }
 
+        private void SetConfirmUrl(string text)
+        {
+            if (lb_Wxid.InvokeRequired)
+            {
+                Action<string> action = new Action<string>(SetConfirmUrl);
+                Invoke(action, new object[] { text });
+            }
+            else
+            {
+                lb_ConfirmUrl.Text = text;
+                //定位到最后一行
+            }
+        }
 
 
         private void Log(string text)
@@ -206,7 +219,7 @@ namespace NearWeChat.MKM
 
         private void Btn_scan_Click(object sender, EventArgs e)
         {
-
+          
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -244,6 +257,7 @@ namespace NearWeChat.MKM
 
         private void DataLogin()
         {
+
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
          
             Models.Request.Login62Data login62Requestl = new Login62Data();
@@ -266,8 +280,20 @@ namespace NearWeChat.MKM
                 Log(login62Response.Message);
                 return;
             }
-            //TODO:序列号参数之后，打出Wwid
-            Log(login62Response.Data.ToString());
+         
+
+            if (string.IsNullOrEmpty(login62Response.Data.accountInfo.wxid))
+            {
+                Log(login62Response.Data.baseResponse.errMsg._string);
+
+                Models.Response.Login62Confirm login62Confirm= Tool.XmlHelper.Deserialize<Models.Response.Login62Confirm>(login62Response.Data.baseResponse.errMsg._string.Replace("\n",""));
+
+                SetConfirmUrl( login62Confirm.Url);
+                return;
+            }
+
+            SetWwId(login62Response.Data.accountInfo.wxid);
+            //TODO:调心跳
         }
 
         private void AccountLogin()
@@ -280,13 +306,45 @@ namespace NearWeChat.MKM
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
             string Wwid = this.lb_Wxid.Text;
             string json = string.Empty;
-            if (!loginFacde.Get62Data(ref json, Wwid))
+            if (!loginFacde.LoginOut(ref json, Wwid))
             {
                 Log("404网络异常，请检查ip或端口配置");
                 return;
             }
 
             Log(json);
+        }
+
+        private void Btn_twcLogin_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            string json = string.Empty;
+            if (!loginFacde.TwiceLogin(ref json, Wwid))
+            {
+                Log("404网络异常，请检查ip或端口配置");
+                return;
+            }
+
+            Log(json);
+        }
+    
+
+        private void Btn_confim_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            ExtDeviceLoginConfirmOK extDeviceLoginConfirmOK = new ExtDeviceLoginConfirmOK
+            {
+                LoginUrl = lb_ConfirmUrl.Text,
+                WxId = string.Empty
+            };
+            Models.Response.ResponseBase<Models.Response.LoginConfirm> response = new Models.Response.ResponseBase<Models.Response.LoginConfirm>();
+
+            if (!loginFacde.ConfirmLogin(ref response, extDeviceLoginConfirmOK))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
         }
     }
 }

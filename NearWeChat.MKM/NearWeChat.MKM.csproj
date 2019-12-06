@@ -65,10 +65,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Request\ExtDeviceLoginConfirmOK.cs" />
     <Compile Include="Models\Request\Login62Data.cs" />
     <Compile Include="Models\Request\LoginQrCode.cs" />
+    <Compile Include="Models\Request\RequestBase.cs" />
     <Compile Include="Models\Response\HeartBeat.cs" />
+    <Compile Include="Models\Response\Login62Confirm.cs" />
     <Compile Include="Models\Response\Login62Data.cs" />
+    <Compile Include="Models\Response\LoginConfirm.cs" />
     <Compile Include="Models\Response\ResponseBase.cs" />
     <Compile Include="Models\Response\CheckLogin.cs" />
     <Compile Include="Models\Response\LoginQrCode.cs" />
@@ -76,6 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tool\HttpHelper.cs" />
     <Compile Include="Tool\ImageHelper.cs" />
+    <Compile Include="Tool\XmlHelper.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

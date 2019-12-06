@@ -105,7 +105,7 @@ namespace NearWeChat.MKM.Facade
 
                 responseModel = JsonConvert.DeserializeObject<Models.Response.ResponseBase<Models.Response.Login62Data>>(json);
 
-
+                Msg = json;
                 return true;
             }
             catch (Exception e)
@@ -130,6 +130,40 @@ namespace NearWeChat.MKM.Facade
                 return false;
             }
 
+
+        }
+
+        public bool TwiceLogin(ref string json ,string Wxid)
+        {
+            try
+            {
+                json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.TwiceLogin + "/" + Wxid, string.Empty);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Msg = "404,网络异常请检查ip或端口";
+                return false;
+            }
+
+
+        }
+
+        public bool ConfirmLogin(ref Models.Response.ResponseBase<Models.Response.LoginConfirm> response, ExtDeviceLoginConfirmOK postData)
+        {
+
+            try
+            {
+                string requsetjson = JsonConvert.SerializeObject(postData);
+                string json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.ExtDeviceLoginConfirmOK , requsetjson);
+                Msg = json;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Msg = "404,网络异常请检查ip或端口";
+                return false;
+            }
 
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace NearWeChat.MKM
+﻿using System;
+
+namespace NearWeChat.MKM
 {
     partial class Form1
     {
@@ -41,6 +43,9 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_confirmget = new System.Windows.Forms.Button();
+            this.btn_confim = new System.Windows.Forms.Button();
+            this.btn_twcLogin = new System.Windows.Forms.Button();
             this.btn_loginout = new System.Windows.Forms.Button();
             this.btn_NewInit = new System.Windows.Forms.Button();
             this.btn_get62 = new System.Windows.Forms.Button();
@@ -64,7 +69,8 @@
             this.tb_username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_twcLogin = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lb_ConfirmUrl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -188,6 +194,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_confirmget);
+            this.tabPage1.Controls.Add(this.btn_confim);
             this.tabPage1.Controls.Add(this.btn_twcLogin);
             this.tabPage1.Controls.Add(this.btn_loginout);
             this.tabPage1.Controls.Add(this.btn_NewInit);
@@ -200,9 +208,38 @@
             this.tabPage1.Text = "Login";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btn_confirmget
+            // 
+            this.btn_confirmget.Location = new System.Drawing.Point(23, 154);
+            this.btn_confirmget.Name = "btn_confirmget";
+            this.btn_confirmget.Size = new System.Drawing.Size(111, 26);
+            this.btn_confirmget.TabIndex = 5;
+            this.btn_confirmget.Text = "获取登录授权";
+            this.btn_confirmget.UseVisualStyleBackColor = true;
+            // 
+            // btn_confim
+            // 
+            this.btn_confim.Location = new System.Drawing.Point(23, 110);
+            this.btn_confim.Name = "btn_confim";
+            this.btn_confim.Size = new System.Drawing.Size(111, 26);
+            this.btn_confim.TabIndex = 4;
+            this.btn_confim.Text = "确认登录";
+            this.btn_confim.UseVisualStyleBackColor = true;
+            this.btn_confim.Click += new System.EventHandler(this.Btn_confim_Click);
+            // 
+            // btn_twcLogin
+            // 
+            this.btn_twcLogin.Location = new System.Drawing.Point(23, 195);
+            this.btn_twcLogin.Name = "btn_twcLogin";
+            this.btn_twcLogin.Size = new System.Drawing.Size(111, 26);
+            this.btn_twcLogin.TabIndex = 3;
+            this.btn_twcLogin.Text = "二次登录";
+            this.btn_twcLogin.UseVisualStyleBackColor = true;
+            this.btn_twcLogin.Click += new System.EventHandler(this.Btn_twcLogin_Click);
+            // 
             // btn_loginout
             // 
-            this.btn_loginout.Location = new System.Drawing.Point(23, 148);
+            this.btn_loginout.Location = new System.Drawing.Point(23, 239);
             this.btn_loginout.Name = "btn_loginout";
             this.btn_loginout.Size = new System.Drawing.Size(111, 26);
             this.btn_loginout.TabIndex = 2;
@@ -281,6 +318,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lb_ConfirmUrl);
+            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.lb_Wxid);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.lb_Uuid);
@@ -344,7 +383,7 @@
             this.btn_liulan.Name = "btn_liulan";
             this.btn_liulan.Size = new System.Drawing.Size(212, 29);
             this.btn_liulan.TabIndex = 8;
-            this.btn_liulan.Text = "浏览";
+            this.btn_liulan.Text = "识别二维码";
             this.btn_liulan.UseVisualStyleBackColor = true;
             this.btn_liulan.Click += new System.EventHandler(this.Btn_liulan_Click);
             // 
@@ -362,7 +401,7 @@
             this.groupBox5.Size = new System.Drawing.Size(272, 221);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "调试";
+            this.groupBox5.Text = "登陆";
             // 
             // label2
             // 
@@ -428,20 +467,29 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "账号：";
             // 
-            // btn_twcLogin
+            // label5
             // 
-            this.btn_twcLogin.Location = new System.Drawing.Point(23, 104);
-            this.btn_twcLogin.Name = "btn_twcLogin";
-            this.btn_twcLogin.Size = new System.Drawing.Size(111, 26);
-            this.btn_twcLogin.TabIndex = 3;
-            this.btn_twcLogin.Text = "二次确认";
-            this.btn_twcLogin.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "ConfirmUrl：";
+            // 
+            // lb_ConfirmUrl
+            // 
+            this.lb_ConfirmUrl.AutoSize = true;
+            this.lb_ConfirmUrl.Location = new System.Drawing.Point(94, 89);
+            this.lb_ConfirmUrl.Name = "lb_ConfirmUrl";
+            this.lb_ConfirmUrl.Size = new System.Drawing.Size(65, 12);
+            this.lb_ConfirmUrl.TabIndex = 11;
+            this.lb_ConfirmUrl.Text = "ConfirmUrl";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1192, 822);
+            this.ClientSize = new System.Drawing.Size(1201, 822);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btn_liulan);
             this.Controls.Add(this.groupBox4);
@@ -472,6 +520,8 @@
             this.ResumeLayout(false);
 
         }
+
+      
 
         #endregion
 
@@ -511,6 +561,10 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btn_loginout;
         private System.Windows.Forms.Button btn_twcLogin;
+        private System.Windows.Forms.Button btn_confirmget;
+        private System.Windows.Forms.Button btn_confim;
+        private System.Windows.Forms.Label lb_ConfirmUrl;
+        private System.Windows.Forms.Label label5;
     }
 }
 
