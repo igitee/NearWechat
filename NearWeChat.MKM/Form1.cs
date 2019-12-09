@@ -21,13 +21,9 @@ namespace NearWeChat.MKM
 
         System.Timers.Timer Timer_CheckLogin = new System.Timers.Timer();
         private static readonly object Lock_Islogin = new object();
-        WebKit.WebKitBrowser browser = new WebKit.WebKitBrowser();
         public Form1()
         {
             InitializeComponent();
-          
-            browser.Dock = DockStyle.Fill;
-            this.groupBox1.Controls.Add(browser);
         }
 
         private void Btn_getqrcode_Click(object sender, EventArgs e)
@@ -349,22 +345,6 @@ namespace NearWeChat.MKM
                 Log(loginFacde.Msg);
                 return;
             }
-        }
-
-        private void Btn_NewInit_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Btn_href_Click(object sender, EventArgs e)
-        {
-
-            //browser.Navigate("http://ie.icoa.cn/");
-
-            browser.Navigate(this.lb_ConfirmUrl.Text);
-            
-
-
         }
     }
 }

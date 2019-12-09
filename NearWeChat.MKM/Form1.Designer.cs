@@ -36,6 +36,7 @@ namespace NearWeChat.MKM
             this.pic_scan = new System.Windows.Forms.PictureBox();
             this.btn_scan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_heart = new System.Windows.Forms.TextBox();
             this.tb_log = new System.Windows.Forms.TextBox();
@@ -54,9 +55,6 @@ namespace NearWeChat.MKM
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btn_debug = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btn_href = new System.Windows.Forms.Button();
-            this.lb_ConfirmUrl = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.lb_Wxid = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lb_Uuid = new System.Windows.Forms.Label();
@@ -71,8 +69,12 @@ namespace NearWeChat.MKM
             this.tb_username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lb_ConfirmUrl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -122,12 +124,23 @@ namespace NearWeChat.MKM
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(855, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(382, 793);
+            this.groupBox1.Size = new System.Drawing.Size(325, 793);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "浏览器";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(319, 773);
+            this.dataGridView1.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -242,7 +255,6 @@ namespace NearWeChat.MKM
             this.btn_NewInit.TabIndex = 1;
             this.btn_NewInit.Text = "初始化用户信息";
             this.btn_NewInit.UseVisualStyleBackColor = true;
-            this.btn_NewInit.Click += new System.EventHandler(this.Btn_NewInit_Click);
             // 
             // btn_get62
             // 
@@ -306,7 +318,6 @@ namespace NearWeChat.MKM
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.btn_href);
             this.groupBox4.Controls.Add(this.lb_ConfirmUrl);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.lb_Wxid);
@@ -321,34 +332,6 @@ namespace NearWeChat.MKM
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "调试";
-            // 
-            // btn_href
-            // 
-            this.btn_href.Location = new System.Drawing.Point(196, 89);
-            this.btn_href.Name = "btn_href";
-            this.btn_href.Size = new System.Drawing.Size(76, 21);
-            this.btn_href.TabIndex = 14;
-            this.btn_href.Text = "访问链接";
-            this.btn_href.UseVisualStyleBackColor = true;
-            this.btn_href.Click += new System.EventHandler(this.Btn_href_Click);
-            // 
-            // lb_ConfirmUrl
-            // 
-            this.lb_ConfirmUrl.AutoSize = true;
-            this.lb_ConfirmUrl.Location = new System.Drawing.Point(94, 89);
-            this.lb_ConfirmUrl.Name = "lb_ConfirmUrl";
-            this.lb_ConfirmUrl.Size = new System.Drawing.Size(65, 12);
-            this.lb_ConfirmUrl.TabIndex = 11;
-            this.lb_ConfirmUrl.Text = "ConfirmUrl";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 89);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "ConfirmUrl：";
             // 
             // lb_Wxid
             // 
@@ -484,11 +467,29 @@ namespace NearWeChat.MKM
             this.label6.TabIndex = 5;
             this.label6.Text = "账号：";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "ConfirmUrl：";
+            // 
+            // lb_ConfirmUrl
+            // 
+            this.lb_ConfirmUrl.AutoSize = true;
+            this.lb_ConfirmUrl.Location = new System.Drawing.Point(94, 89);
+            this.lb_ConfirmUrl.Name = "lb_ConfirmUrl";
+            this.lb_ConfirmUrl.Size = new System.Drawing.Size(65, 12);
+            this.lb_ConfirmUrl.TabIndex = 11;
+            this.lb_ConfirmUrl.Text = "ConfirmUrl";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 822);
+            this.ClientSize = new System.Drawing.Size(1201, 822);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btn_liulan);
             this.Controls.Add(this.groupBox4);
@@ -504,6 +505,8 @@ namespace NearWeChat.MKM
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -555,13 +558,13 @@ namespace NearWeChat.MKM
         private System.Windows.Forms.TextBox tb_pwd;
         private System.Windows.Forms.TextBox tb_username;
         private System.Windows.Forms.Button btn_NewInit;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btn_loginout;
         private System.Windows.Forms.Button btn_twcLogin;
         private System.Windows.Forms.Button btn_confirmget;
         private System.Windows.Forms.Button btn_confim;
         private System.Windows.Forms.Label lb_ConfirmUrl;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btn_href;
     }
 }
 
