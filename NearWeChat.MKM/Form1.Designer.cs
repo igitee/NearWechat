@@ -36,7 +36,6 @@ namespace NearWeChat.MKM
             this.pic_scan = new System.Windows.Forms.PictureBox();
             this.btn_scan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_heart = new System.Windows.Forms.TextBox();
             this.tb_log = new System.Windows.Forms.TextBox();
@@ -55,6 +54,8 @@ namespace NearWeChat.MKM
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btn_debug = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lb_ConfirmUrl = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.lb_Wxid = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lb_Uuid = new System.Windows.Forms.Label();
@@ -69,12 +70,14 @@ namespace NearWeChat.MKM
             this.tb_username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lb_ConfirmUrl = new System.Windows.Forms.Label();
+            this.tb_url = new System.Windows.Forms.TextBox();
+            this.btn_browser = new System.Windows.Forms.Button();
+            this.btn_verify = new System.Windows.Forms.Button();
+            this.btn_native = new System.Windows.Forms.Button();
+            this.btn_heart = new System.Windows.Forms.Button();
+            this.btn_InitUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -124,23 +127,12 @@ namespace NearWeChat.MKM
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(855, 11);
+            this.groupBox1.Location = new System.Drawing.Point(855, 73);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 793);
+            this.groupBox1.Size = new System.Drawing.Size(483, 731);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "浏览器";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(319, 773);
-            this.dataGridView1.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -194,8 +186,12 @@ namespace NearWeChat.MKM
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_InitUser);
+            this.tabPage1.Controls.Add(this.btn_heart);
+            this.tabPage1.Controls.Add(this.btn_verify);
             this.tabPage1.Controls.Add(this.btn_confirmget);
             this.tabPage1.Controls.Add(this.btn_confim);
+            this.tabPage1.Controls.Add(this.btn_login);
             this.tabPage1.Controls.Add(this.btn_twcLogin);
             this.tabPage1.Controls.Add(this.btn_loginout);
             this.tabPage1.Controls.Add(this.btn_NewInit);
@@ -210,7 +206,7 @@ namespace NearWeChat.MKM
             // 
             // btn_confirmget
             // 
-            this.btn_confirmget.Location = new System.Drawing.Point(23, 154);
+            this.btn_confirmget.Location = new System.Drawing.Point(20, 205);
             this.btn_confirmget.Name = "btn_confirmget";
             this.btn_confirmget.Size = new System.Drawing.Size(111, 26);
             this.btn_confirmget.TabIndex = 5;
@@ -219,7 +215,7 @@ namespace NearWeChat.MKM
             // 
             // btn_confim
             // 
-            this.btn_confim.Location = new System.Drawing.Point(23, 110);
+            this.btn_confim.Location = new System.Drawing.Point(20, 154);
             this.btn_confim.Name = "btn_confim";
             this.btn_confim.Size = new System.Drawing.Size(111, 26);
             this.btn_confim.TabIndex = 4;
@@ -229,7 +225,7 @@ namespace NearWeChat.MKM
             // 
             // btn_twcLogin
             // 
-            this.btn_twcLogin.Location = new System.Drawing.Point(23, 195);
+            this.btn_twcLogin.Location = new System.Drawing.Point(20, 257);
             this.btn_twcLogin.Name = "btn_twcLogin";
             this.btn_twcLogin.Size = new System.Drawing.Size(111, 26);
             this.btn_twcLogin.TabIndex = 3;
@@ -239,7 +235,7 @@ namespace NearWeChat.MKM
             // 
             // btn_loginout
             // 
-            this.btn_loginout.Location = new System.Drawing.Point(23, 239);
+            this.btn_loginout.Location = new System.Drawing.Point(20, 358);
             this.btn_loginout.Name = "btn_loginout";
             this.btn_loginout.Size = new System.Drawing.Size(111, 26);
             this.btn_loginout.TabIndex = 2;
@@ -249,16 +245,17 @@ namespace NearWeChat.MKM
             // 
             // btn_NewInit
             // 
-            this.btn_NewInit.Location = new System.Drawing.Point(23, 20);
+            this.btn_NewInit.Location = new System.Drawing.Point(164, 20);
             this.btn_NewInit.Name = "btn_NewInit";
             this.btn_NewInit.Size = new System.Drawing.Size(111, 26);
             this.btn_NewInit.TabIndex = 1;
             this.btn_NewInit.Text = "初始化用户信息";
             this.btn_NewInit.UseVisualStyleBackColor = true;
+            this.btn_NewInit.Click += new System.EventHandler(this.Btn_NewInit_Click);
             // 
             // btn_get62
             // 
-            this.btn_get62.Location = new System.Drawing.Point(23, 62);
+            this.btn_get62.Location = new System.Drawing.Point(20, 20);
             this.btn_get62.Name = "btn_get62";
             this.btn_get62.Size = new System.Drawing.Size(111, 26);
             this.btn_get62.TabIndex = 0;
@@ -318,6 +315,7 @@ namespace NearWeChat.MKM
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btn_native);
             this.groupBox4.Controls.Add(this.lb_ConfirmUrl);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.lb_Wxid);
@@ -332,6 +330,24 @@ namespace NearWeChat.MKM
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "调试";
+            // 
+            // lb_ConfirmUrl
+            // 
+            this.lb_ConfirmUrl.AutoSize = true;
+            this.lb_ConfirmUrl.Location = new System.Drawing.Point(94, 89);
+            this.lb_ConfirmUrl.Name = "lb_ConfirmUrl";
+            this.lb_ConfirmUrl.Size = new System.Drawing.Size(65, 12);
+            this.lb_ConfirmUrl.TabIndex = 11;
+            this.lb_ConfirmUrl.Text = "ConfirmUrl";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "ConfirmUrl：";
             // 
             // lb_Wxid
             // 
@@ -391,7 +407,6 @@ namespace NearWeChat.MKM
             // 
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.tb_62);
-            this.groupBox5.Controls.Add(this.btn_login);
             this.groupBox5.Controls.Add(this.tb_pwd);
             this.groupBox5.Controls.Add(this.tb_username);
             this.groupBox5.Controls.Add(this.label4);
@@ -417,17 +432,17 @@ namespace NearWeChat.MKM
             this.tb_62.Location = new System.Drawing.Point(52, 88);
             this.tb_62.Multiline = true;
             this.tb_62.Name = "tb_62";
-            this.tb_62.Size = new System.Drawing.Size(210, 89);
+            this.tb_62.Size = new System.Drawing.Size(210, 112);
             this.tb_62.TabIndex = 12;
             this.tb_62.Text = resources.GetString("tb_62.Text");
             // 
             // btn_login
             // 
-            this.btn_login.Location = new System.Drawing.Point(190, 186);
+            this.btn_login.Location = new System.Drawing.Point(20, 64);
             this.btn_login.Name = "btn_login";
-            this.btn_login.Size = new System.Drawing.Size(76, 29);
+            this.btn_login.Size = new System.Drawing.Size(111, 27);
             this.btn_login.TabIndex = 10;
-            this.btn_login.Text = "登录";
+            this.btn_login.Text = "62登录";
             this.btn_login.UseVisualStyleBackColor = true;
             this.btn_login.Click += new System.EventHandler(this.Btn_login_Click);
             // 
@@ -438,7 +453,7 @@ namespace NearWeChat.MKM
             this.tb_pwd.Name = "tb_pwd";
             this.tb_pwd.Size = new System.Drawing.Size(210, 28);
             this.tb_pwd.TabIndex = 11;
-            this.tb_pwd.Text = "13054134167g";
+            this.tb_pwd.Text = "13054134167c";
             // 
             // tb_username
             // 
@@ -467,29 +482,70 @@ namespace NearWeChat.MKM
             this.label6.TabIndex = 5;
             this.label6.Text = "账号：";
             // 
-            // label5
+            // tb_url
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 89);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "ConfirmUrl：";
+            this.tb_url.Location = new System.Drawing.Point(855, 31);
+            this.tb_url.Multiline = true;
+            this.tb_url.Name = "tb_url";
+            this.tb_url.Size = new System.Drawing.Size(392, 28);
+            this.tb_url.TabIndex = 12;
             // 
-            // lb_ConfirmUrl
+            // btn_browser
             // 
-            this.lb_ConfirmUrl.AutoSize = true;
-            this.lb_ConfirmUrl.Location = new System.Drawing.Point(94, 89);
-            this.lb_ConfirmUrl.Name = "lb_ConfirmUrl";
-            this.lb_ConfirmUrl.Size = new System.Drawing.Size(65, 12);
-            this.lb_ConfirmUrl.TabIndex = 11;
-            this.lb_ConfirmUrl.Text = "ConfirmUrl";
+            this.btn_browser.Location = new System.Drawing.Point(1253, 30);
+            this.btn_browser.Name = "btn_browser";
+            this.btn_browser.Size = new System.Drawing.Size(76, 29);
+            this.btn_browser.TabIndex = 12;
+            this.btn_browser.Text = "浏 览";
+            this.btn_browser.UseVisualStyleBackColor = true;
+            this.btn_browser.Click += new System.EventHandler(this.Btn_browser_Click);
+            // 
+            // btn_verify
+            // 
+            this.btn_verify.Location = new System.Drawing.Point(20, 107);
+            this.btn_verify.Name = "btn_verify";
+            this.btn_verify.Size = new System.Drawing.Size(111, 27);
+            this.btn_verify.TabIndex = 11;
+            this.btn_verify.Text = "验证通过";
+            this.btn_verify.UseVisualStyleBackColor = true;
+            this.btn_verify.Click += new System.EventHandler(this.Btn_verify_Click);
+            // 
+            // btn_native
+            // 
+            this.btn_native.Location = new System.Drawing.Point(192, 81);
+            this.btn_native.Name = "btn_native";
+            this.btn_native.Size = new System.Drawing.Size(76, 29);
+            this.btn_native.TabIndex = 13;
+            this.btn_native.Text = "浏 览";
+            this.btn_native.UseVisualStyleBackColor = true;
+            this.btn_native.Click += new System.EventHandler(this.Btn_native_Click);
+            // 
+            // btn_heart
+            // 
+            this.btn_heart.Location = new System.Drawing.Point(20, 305);
+            this.btn_heart.Name = "btn_heart";
+            this.btn_heart.Size = new System.Drawing.Size(111, 26);
+            this.btn_heart.TabIndex = 12;
+            this.btn_heart.Text = "心 跳";
+            this.btn_heart.UseVisualStyleBackColor = true;
+            this.btn_heart.Click += new System.EventHandler(this.Btn_heart_Click);
+            // 
+            // btn_InitUser
+            // 
+            this.btn_InitUser.Location = new System.Drawing.Point(164, 65);
+            this.btn_InitUser.Name = "btn_InitUser";
+            this.btn_InitUser.Size = new System.Drawing.Size(111, 26);
+            this.btn_InitUser.TabIndex = 13;
+            this.btn_InitUser.Text = "初始化好友信息";
+            this.btn_InitUser.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 822);
+            this.ClientSize = new System.Drawing.Size(1350, 822);
+            this.Controls.Add(this.btn_browser);
+            this.Controls.Add(this.tb_url);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btn_liulan);
             this.Controls.Add(this.groupBox4);
@@ -505,8 +561,6 @@ namespace NearWeChat.MKM
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -518,6 +572,7 @@ namespace NearWeChat.MKM
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -558,13 +613,18 @@ namespace NearWeChat.MKM
         private System.Windows.Forms.TextBox tb_pwd;
         private System.Windows.Forms.TextBox tb_username;
         private System.Windows.Forms.Button btn_NewInit;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btn_loginout;
         private System.Windows.Forms.Button btn_twcLogin;
         private System.Windows.Forms.Button btn_confirmget;
         private System.Windows.Forms.Button btn_confim;
         private System.Windows.Forms.Label lb_ConfirmUrl;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tb_url;
+        private System.Windows.Forms.Button btn_browser;
+        private System.Windows.Forms.Button btn_verify;
+        private System.Windows.Forms.Button btn_native;
+        private System.Windows.Forms.Button btn_heart;
+        private System.Windows.Forms.Button btn_InitUser;
     }
 }
 

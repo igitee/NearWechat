@@ -117,6 +117,46 @@ namespace NearWeChat.MKM.Facade
 
         }
 
+
+        public bool VerifyLoginBy62(ref Models.Response.ResponseBase<Models.Response.PassVerify> responseModel, Login62Data requestModel)
+        {
+
+            try
+            {
+                string requsetjson = JsonConvert.SerializeObject(requestModel);
+
+                string json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Login_62Data, requsetjson, "application/json");
+
+                responseModel = JsonConvert.DeserializeObject<Models.Response.ResponseBase<Models.Response.PassVerify>>(json);
+
+                Msg = json;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Msg = "404,网络异常请检查ip或端口";
+                return false;
+            }
+
+
+        }
+
+        public bool NewInit(ref string json, string Wxid) {
+
+            try
+            {
+                json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.NewInit + "/" + Wxid, string.Empty);
+                Msg = json;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Msg = "404,网络异常请检查ip或端口";
+                return false;
+            }
+
+        }
+
         public bool LoginOut(ref  string json, string Wxid)
         {
             try
@@ -149,13 +189,13 @@ namespace NearWeChat.MKM.Facade
 
         }
 
-        public bool ConfirmLogin(ref Models.Response.ResponseBase<Models.Response.LoginConfirm> response, ExtDeviceLoginConfirmOK postData)
+        public bool ConfirmLogin(ref string json, ExtDeviceLoginConfirmOK postData)
         {
 
             try
             {
                 string requsetjson = JsonConvert.SerializeObject(postData);
-                string json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.ExtDeviceLoginConfirmOK , requsetjson);
+                 json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.ExtDeviceLoginConfirmOK , requsetjson);
                 Msg = json;
                 return true;
             }

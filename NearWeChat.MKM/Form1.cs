@@ -1,4 +1,6 @@
 ﻿
+using CefSharp;
+using CefSharp.WinForms;
 using NearWeChat.MKM.Models.Request;
 using System;
 using System.Collections.Generic;
@@ -21,9 +23,17 @@ namespace NearWeChat.MKM
 
         System.Timers.Timer Timer_CheckLogin = new System.Timers.Timer();
         private static readonly object Lock_Islogin = new object();
+        private ChromiumWebBrowser browser = null;
         public Form1()
         {
             InitializeComponent();
+            var setting = new CefSettings();
+            setting.Locale = "zh-CN";
+            setting.CefCommandLineArgs.Add("disable-gpu", "1");//去掉gpu，否则chrome显示有问题
+            Cef.Initialize(setting);
+            browser = new ChromiumWebBrowser("https://liulanmi.com/labs/core.html");
+            this.groupBox1.Controls.Add(browser);
+            browser.Dock = DockStyle.Fill;
         }
 
         private void Btn_getqrcode_Click(object sender, EventArgs e)
@@ -111,13 +121,13 @@ namespace NearWeChat.MKM
 
 
                 System.Timers.Timer Timer_CheckLogin_Heatbeat = new System.Timers.Timer();
-                Timer_CheckLogin_Heatbeat.Elapsed += Timer_CheckLogin_Elapsed1;
+                Timer_CheckLogin_Heatbeat.Elapsed += Timer_CheckLogin_Heart_Elapsed;
                 Timer_CheckLogin_Heatbeat.Interval = 10000;
                 Timer_CheckLogin_Heatbeat.Start();
             }
         }
 
-        private void Timer_CheckLogin_Elapsed1(object sender, System.Timers.ElapsedEventArgs e)
+        private void Timer_CheckLogin_Heart_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             string uuid = this.lb_Uuid.Text;
             string wwxid = this.lb_Wxid.Text;
@@ -157,6 +167,7 @@ namespace NearWeChat.MKM
             else
             {
                 lb_ConfirmUrl.Text = text;
+                tb_url.Text = text;
                 //定位到最后一行
             }
         }
@@ -252,16 +263,17 @@ namespace NearWeChat.MKM
                 AccountLogin();
                 return;
             }
-            DataLogin();
+            DataLogin(false);
         }
 
-        private void DataLogin()
+        private void DataLogin(bool isVerify)
         {
 
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
-         
+
+
             Models.Request.Login62Data login62Requestl = new Login62Data();
-            login62Requestl.Data62= this.tb_62.Text;
+            login62Requestl.Data62 = this.tb_62.Text;
             login62Requestl.UserName = this.tb_username.Text;
             login62Requestl.Password = this.tb_pwd.Text;
             login62Requestl.ProxyIp = Config.ProxyConfig.Ip;
@@ -269,32 +281,60 @@ namespace NearWeChat.MKM
             login62Requestl.ProxyPassword = Config.ProxyConfig.UserPwd;
 
 
-             Models.Response.ResponseBase<Models.Response.Login62Data> login62Response = new Models.Response.ResponseBase<Models.Response.Login62Data>();
-            if (!loginFacde.LoginBy62(ref login62Response, login62Requestl))
+            if (!isVerify)
+            {
+                Models.Response.ResponseBase<Models.Response.Login62Data> login62Response = new Models.Response.ResponseBase<Models.Response.Login62Data>();
+                if (!loginFacde.LoginBy62(ref login62Response, login62Requestl))
+                {
+                    Log(loginFacde.Msg);
+                    return ;
+                }
+                if (!login62Response.Success)
+                {
+                    Log(login62Response.Message);
+                    return ;
+                }
+
+
+                if (string.IsNullOrEmpty(login62Response.Data.accountInfo.wxid))
+                {
+                    Log(login62Response.Data.baseResponse.errMsg._string);
+
+                    Models.Response.Login62Confirm login62Confirm = Tool.XmlHelper.Deserialize<Models.Response.Login62Confirm>(login62Response.Data.baseResponse.errMsg._string.Replace("\n", ""));
+
+                    SetConfirmUrl(login62Confirm.Url);
+                    return ;
+                }
+                SetWwId(login62Response.Data.accountInfo.wxid);
+
+                return;
+            }
+
+            Models.Response.ResponseBase<Models.Response.PassVerify> PassVerifyResponse = new Models.Response.ResponseBase<Models.Response.PassVerify>();
+            if (!loginFacde.VerifyLoginBy62(ref PassVerifyResponse, login62Requestl))
             {
                 Log(loginFacde.Msg);
                 return;
             }
-            if (!login62Response.Success)
+            if (!PassVerifyResponse.Success)
             {
-                Log(login62Response.Message);
+                Log(PassVerifyResponse.Message);
                 return;
             }
-         
-
-            if (string.IsNullOrEmpty(login62Response.Data.accountInfo.wxid))
+            if (string.IsNullOrEmpty(PassVerifyResponse.Data.accountInfo.wxid))
             {
-                Log(login62Response.Data.baseResponse.errMsg._string);
-
-                Models.Response.Login62Confirm login62Confirm= Tool.XmlHelper.Deserialize<Models.Response.Login62Confirm>(login62Response.Data.baseResponse.errMsg._string.Replace("\n",""));
-
-                SetConfirmUrl( login62Confirm.Url);
+                Log(PassVerifyResponse.Data.baseResponse.errMsg._string);
                 return;
             }
+            SetWwId(PassVerifyResponse.Data.accountInfo.wxid);
 
-            SetWwId(login62Response.Data.accountInfo.wxid);
+
             //TODO:调心跳
         }
+
+      
+
+
 
         private void AccountLogin()
         {
@@ -338,13 +378,48 @@ namespace NearWeChat.MKM
                 LoginUrl = lb_ConfirmUrl.Text,
                 WxId = string.Empty
             };
-            Models.Response.ResponseBase<Models.Response.LoginConfirm> response = new Models.Response.ResponseBase<Models.Response.LoginConfirm>();
+            string json = string.Empty;
 
-            if (!loginFacde.ConfirmLogin(ref response, extDeviceLoginConfirmOK))
+            if (!loginFacde.ConfirmLogin(ref json, extDeviceLoginConfirmOK))
             {
                 Log(loginFacde.Msg);
                 return;
             }
+            Log(json);
+        }
+
+        private void Btn_browser_Click(object sender, EventArgs e)
+        {
+            browser.Load(this.tb_url.Text);
+        }
+
+        private void Btn_NewInit_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            string json = string.Empty;
+            if (!loginFacde.NewInit(ref json, Wwid))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_verify_Click(object sender, EventArgs e)
+        {
+            DataLogin(true);
+        }
+
+        private void Btn_native_Click(object sender, EventArgs e)
+        {
+            browser.Load(this.lb_ConfirmUrl.Text);
+        }
+
+        private void Btn_heart_Click(object sender, EventArgs e)
+        {
+            Timer_CheckLogin_Heart_Elapsed(null, null);
         }
     }
 }

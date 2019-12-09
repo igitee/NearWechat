@@ -30,7 +30,7 @@ namespace NearWeChat
         public Form1()
         {
             InitializeComponent();
-
+            
         }
 
 

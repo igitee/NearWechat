@@ -55,7 +55,10 @@ namespace NearWeChat.MKM.Config
         /// </summary>
         public static string ExtDeviceLoginConfirmGet = "api/Login/ExtDeviceLoginConfirmGet";
 
-
+        /// <summary>
+        /// 初始化用户信息
+        /// </summary>
+        public static string NewInit = "api/Login/NewInit";
 
     }
 }
