@@ -604,6 +604,7 @@ namespace NearWeChat.MKM
             this.btn_getfriendlist.TabIndex = 16;
             this.btn_getfriendlist.Text = "获取好友联系人";
             this.btn_getfriendlist.UseVisualStyleBackColor = true;
+            this.btn_getfriendlist.Click += new System.EventHandler(this.Btn_getfriendlist_Click);
             // 
             // label8
             // 

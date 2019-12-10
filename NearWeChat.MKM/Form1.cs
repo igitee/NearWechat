@@ -493,5 +493,24 @@ namespace NearWeChat.MKM
 
             Log(json);
         }
+
+        private void Btn_getfriendlist_Click(object sender, EventArgs e)
+        {
+            Facade.FriendFacade messageFacade = new Facade.FriendFacade();
+
+        
+             string WxId = this.lb_Wxid.Text;
+      
+
+            string json = string.Empty;
+
+            if (!messageFacade.GetContractList(ref json, WxId))
+            {
+                Log(messageFacade.Msg);
+                return;
+            }
+
+            Log(json);
+        }
     }
 }
