@@ -206,5 +206,27 @@ namespace NearWeChat.MKM.Facade
             }
 
         }
+
+        public bool InitUser(ref string json, InitUser requestModel)
+        {
+
+            try
+            {
+                string requsetjson = JsonConvert.SerializeObject(requestModel);
+               json = Tool.HttpHelper.HttpPost(AppConfig.BaseUrl + AppConfig.Login_GetQrCode, requsetjson);
+
+             
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+        }
+
     }
 }

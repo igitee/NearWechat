@@ -74,8 +74,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Request\ExtDeviceLoginConfirmOK.cs" />
+    <Compile Include="Models\Request\InitUser.cs" />
     <Compile Include="Models\Request\Login62Data.cs" />
     <Compile Include="Models\Request\LoginQrCode.cs" />
+    <Compile Include="Models\Response\InitUserResponse.cs" />
     <Compile Include="Models\Response\PassVerify.cs" />
     <Compile Include="Models\Request\RequestBase.cs" />
     <Compile Include="Models\Response\HeartBeat.cs" />

@@ -421,5 +421,22 @@ namespace NearWeChat.MKM
         {
             Timer_CheckLogin_Heart_Elapsed(null, null);
         }
+
+        private void Btn_InitUser_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            Models.Request.InitUser initUser = new InitUser();
+
+            string json = string.Empty;
+
+            if (!loginFacde.NewInit(ref json, Wwid))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+
+            Log(json);
+        }
     }
 }

@@ -42,8 +42,12 @@ namespace NearWeChat.MKM
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_InitUser = new System.Windows.Forms.Button();
+            this.btn_heart = new System.Windows.Forms.Button();
+            this.btn_verify = new System.Windows.Forms.Button();
             this.btn_confirmget = new System.Windows.Forms.Button();
             this.btn_confim = new System.Windows.Forms.Button();
+            this.btn_login = new System.Windows.Forms.Button();
             this.btn_twcLogin = new System.Windows.Forms.Button();
             this.btn_loginout = new System.Windows.Forms.Button();
             this.btn_NewInit = new System.Windows.Forms.Button();
@@ -54,6 +58,7 @@ namespace NearWeChat.MKM
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btn_debug = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btn_native = new System.Windows.Forms.Button();
             this.lb_ConfirmUrl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lb_Wxid = new System.Windows.Forms.Label();
@@ -65,17 +70,12 @@ namespace NearWeChat.MKM
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_62 = new System.Windows.Forms.TextBox();
-            this.btn_login = new System.Windows.Forms.Button();
             this.tb_pwd = new System.Windows.Forms.TextBox();
             this.tb_username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tb_url = new System.Windows.Forms.TextBox();
             this.btn_browser = new System.Windows.Forms.Button();
-            this.btn_verify = new System.Windows.Forms.Button();
-            this.btn_native = new System.Windows.Forms.Button();
-            this.btn_heart = new System.Windows.Forms.Button();
-            this.btn_InitUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_scan)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -204,6 +204,36 @@ namespace NearWeChat.MKM
             this.tabPage1.Text = "Login";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btn_InitUser
+            // 
+            this.btn_InitUser.Location = new System.Drawing.Point(164, 65);
+            this.btn_InitUser.Name = "btn_InitUser";
+            this.btn_InitUser.Size = new System.Drawing.Size(111, 26);
+            this.btn_InitUser.TabIndex = 13;
+            this.btn_InitUser.Text = "初始化好友信息";
+            this.btn_InitUser.UseVisualStyleBackColor = true;
+            this.btn_InitUser.Click += new System.EventHandler(this.Btn_InitUser_Click);
+            // 
+            // btn_heart
+            // 
+            this.btn_heart.Location = new System.Drawing.Point(20, 305);
+            this.btn_heart.Name = "btn_heart";
+            this.btn_heart.Size = new System.Drawing.Size(111, 26);
+            this.btn_heart.TabIndex = 12;
+            this.btn_heart.Text = "心 跳";
+            this.btn_heart.UseVisualStyleBackColor = true;
+            this.btn_heart.Click += new System.EventHandler(this.Btn_heart_Click);
+            // 
+            // btn_verify
+            // 
+            this.btn_verify.Location = new System.Drawing.Point(20, 107);
+            this.btn_verify.Name = "btn_verify";
+            this.btn_verify.Size = new System.Drawing.Size(111, 27);
+            this.btn_verify.TabIndex = 11;
+            this.btn_verify.Text = "验证通过";
+            this.btn_verify.UseVisualStyleBackColor = true;
+            this.btn_verify.Click += new System.EventHandler(this.Btn_verify_Click);
+            // 
             // btn_confirmget
             // 
             this.btn_confirmget.Location = new System.Drawing.Point(20, 205);
@@ -222,6 +252,16 @@ namespace NearWeChat.MKM
             this.btn_confim.Text = "确认登录";
             this.btn_confim.UseVisualStyleBackColor = true;
             this.btn_confim.Click += new System.EventHandler(this.Btn_confim_Click);
+            // 
+            // btn_login
+            // 
+            this.btn_login.Location = new System.Drawing.Point(20, 64);
+            this.btn_login.Name = "btn_login";
+            this.btn_login.Size = new System.Drawing.Size(111, 27);
+            this.btn_login.TabIndex = 10;
+            this.btn_login.Text = "62登录";
+            this.btn_login.UseVisualStyleBackColor = true;
+            this.btn_login.Click += new System.EventHandler(this.Btn_login_Click);
             // 
             // btn_twcLogin
             // 
@@ -331,6 +371,16 @@ namespace NearWeChat.MKM
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "调试";
             // 
+            // btn_native
+            // 
+            this.btn_native.Location = new System.Drawing.Point(192, 81);
+            this.btn_native.Name = "btn_native";
+            this.btn_native.Size = new System.Drawing.Size(76, 29);
+            this.btn_native.TabIndex = 13;
+            this.btn_native.Text = "浏 览";
+            this.btn_native.UseVisualStyleBackColor = true;
+            this.btn_native.Click += new System.EventHandler(this.Btn_native_Click);
+            // 
             // lb_ConfirmUrl
             // 
             this.lb_ConfirmUrl.AutoSize = true;
@@ -436,16 +486,6 @@ namespace NearWeChat.MKM
             this.tb_62.TabIndex = 12;
             this.tb_62.Text = resources.GetString("tb_62.Text");
             // 
-            // btn_login
-            // 
-            this.btn_login.Location = new System.Drawing.Point(20, 64);
-            this.btn_login.Name = "btn_login";
-            this.btn_login.Size = new System.Drawing.Size(111, 27);
-            this.btn_login.TabIndex = 10;
-            this.btn_login.Text = "62登录";
-            this.btn_login.UseVisualStyleBackColor = true;
-            this.btn_login.Click += new System.EventHandler(this.Btn_login_Click);
-            // 
             // tb_pwd
             // 
             this.tb_pwd.Location = new System.Drawing.Point(52, 54);
@@ -499,45 +539,6 @@ namespace NearWeChat.MKM
             this.btn_browser.Text = "浏 览";
             this.btn_browser.UseVisualStyleBackColor = true;
             this.btn_browser.Click += new System.EventHandler(this.Btn_browser_Click);
-            // 
-            // btn_verify
-            // 
-            this.btn_verify.Location = new System.Drawing.Point(20, 107);
-            this.btn_verify.Name = "btn_verify";
-            this.btn_verify.Size = new System.Drawing.Size(111, 27);
-            this.btn_verify.TabIndex = 11;
-            this.btn_verify.Text = "验证通过";
-            this.btn_verify.UseVisualStyleBackColor = true;
-            this.btn_verify.Click += new System.EventHandler(this.Btn_verify_Click);
-            // 
-            // btn_native
-            // 
-            this.btn_native.Location = new System.Drawing.Point(192, 81);
-            this.btn_native.Name = "btn_native";
-            this.btn_native.Size = new System.Drawing.Size(76, 29);
-            this.btn_native.TabIndex = 13;
-            this.btn_native.Text = "浏 览";
-            this.btn_native.UseVisualStyleBackColor = true;
-            this.btn_native.Click += new System.EventHandler(this.Btn_native_Click);
-            // 
-            // btn_heart
-            // 
-            this.btn_heart.Location = new System.Drawing.Point(20, 305);
-            this.btn_heart.Name = "btn_heart";
-            this.btn_heart.Size = new System.Drawing.Size(111, 26);
-            this.btn_heart.TabIndex = 12;
-            this.btn_heart.Text = "心 跳";
-            this.btn_heart.UseVisualStyleBackColor = true;
-            this.btn_heart.Click += new System.EventHandler(this.Btn_heart_Click);
-            // 
-            // btn_InitUser
-            // 
-            this.btn_InitUser.Location = new System.Drawing.Point(164, 65);
-            this.btn_InitUser.Name = "btn_InitUser";
-            this.btn_InitUser.Size = new System.Drawing.Size(111, 26);
-            this.btn_InitUser.TabIndex = 13;
-            this.btn_InitUser.Text = "初始化好友信息";
-            this.btn_InitUser.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
