@@ -65,8 +65,11 @@
   <ItemGroup>
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\ProxyConfig.cs" />
+    <Compile Include="Facade\CommonFacade.cs" />
     <Compile Include="Facade\FacadeBase.cs" />
+    <Compile Include="Facade\FriendFacade.cs" />
     <Compile Include="Facade\LoginFacde.cs" />
+    <Compile Include="Facade\MessageFacade.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,9 +77,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Request\ExtDeviceLoginConfirmOK.cs" />
+    <Compile Include="Models\Request\ForkOfficialAccount.cs" />
     <Compile Include="Models\Request\InitUser.cs" />
     <Compile Include="Models\Request\Login62Data.cs" />
     <Compile Include="Models\Request\LoginQrCode.cs" />
+    <Compile Include="Models\Request\TxtMessage.cs" />
     <Compile Include="Models\Response\InitUserResponse.cs" />
     <Compile Include="Models\Response\PassVerify.cs" />
     <Compile Include="Models\Request\RequestBase.cs" />

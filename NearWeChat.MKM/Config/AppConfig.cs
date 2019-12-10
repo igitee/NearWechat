@@ -60,5 +60,21 @@ namespace NearWeChat.MKM.Config
         /// </summary>
         public static string NewInit = "api/Login/NewInit";
 
+        /// <summary>
+        /// 同步微信信息
+        /// </summary>
+        public static string SyncMessage = "api/Common/SyncMessage";
+
+
+        /// <summary>
+        /// 获取好友联系人
+        /// </summary>
+        public static string GetContractList = "api/Friend/GetContractList";
+
+        /// <summary>
+        /// 发送文本消息
+        /// </summary>
+        public static string SendTxtMessage = "api/Message/SendTxtMessage";
+
     }
 }

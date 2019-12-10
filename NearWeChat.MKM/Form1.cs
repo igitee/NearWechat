@@ -230,7 +230,7 @@ namespace NearWeChat.MKM
 
         private void Btn_scan_Click(object sender, EventArgs e)
         {
-          
+            this.tb_APPID.Text = lb_appid.Text;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -433,6 +433,61 @@ namespace NearWeChat.MKM
             if (!loginFacde.NewInit(ref json, Wwid))
             {
                 Log(loginFacde.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_Sync_Click(object sender, EventArgs e)
+        {
+            Facade.CommonFacade   commonFacade = new Facade.CommonFacade();
+            string Wwid = this.lb_Wxid.Text;
+            Models.Request.InitUser initUser = new InitUser();
+
+            string json = string.Empty;
+
+            if (!commonFacade.SyncMessage(ref json, Wwid))
+            {
+                Log(commonFacade.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_foiiow_Click(object sender, EventArgs e)
+        {
+            Facade.CommonFacade commonFacade = new Facade.CommonFacade();
+           
+            Models.Request.ForkOfficialAccount fork = new ForkOfficialAccount();
+            fork.WxId = this.lb_Wxid.Text;
+            fork.AppId = this.tb_APPID.Text;
+            string json = string.Empty;
+
+            if (!commonFacade.ForkOfficialAccountMessage(ref json, fork))
+            {
+                Log(commonFacade.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_sendtext_Click(object sender, EventArgs e)
+        {
+            Facade.MessageFacade messageFacade = new Facade.MessageFacade();
+
+            Models.Request.TxtMessage fork = new TxtMessage();
+            fork.WxId = this.lb_Wxid.Text;
+            fork.Content = this.tb_debug.Text;
+            fork.ToWxIds = new List<string>() { this.tb_towxid.Text };
+
+            string json = string.Empty;
+
+            if (!messageFacade.SendTxtMessage(ref json, fork))
+            {
+                Log(messageFacade.Msg);
                 return;
             }
 
