@@ -1,4 +1,6 @@
 ﻿
+using CefSharp;
+using CefSharp.WinForms;
 using NearWeChat.MKM.Models.Request;
 using System;
 using System.Collections.Generic;
@@ -21,15 +23,23 @@ namespace NearWeChat.MKM
 
         System.Timers.Timer Timer_CheckLogin = new System.Timers.Timer();
         private static readonly object Lock_Islogin = new object();
+        private ChromiumWebBrowser browser = null;
         public Form1()
         {
             InitializeComponent();
+            var setting = new CefSettings();
+            setting.Locale = "zh-CN";
+            setting.CefCommandLineArgs.Add("disable-gpu", "1");//去掉gpu，否则chrome显示有问题
+            Cef.Initialize(setting);
+            browser = new ChromiumWebBrowser("https://liulanmi.com/labs/core.html");
+            this.groupBox1.Controls.Add(browser);
+            browser.Dock = DockStyle.Fill;
         }
 
         private void Btn_getqrcode_Click(object sender, EventArgs e)
         {
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
-            LoginQrCode postData = new LoginQrCode() { ProxyIp = "", DeviceId = "", ProxyUserName = "", ProxyPassword = "" };
+            LoginQrCode postData = new LoginQrCode() { ProxyIp = Config.ProxyConfig.Ip, DeviceId = Config.ProxyConfig.DeviceId, ProxyUserName = Config.ProxyConfig.UserName, ProxyPassword = Config.ProxyConfig.UserPwd };
             Models.Response.LoginQrCode Responsemodel = new Models.Response.LoginQrCode();
             if (!loginFacde.GetLoginQrCode(ref Responsemodel,postData))
             {
@@ -41,6 +51,7 @@ namespace NearWeChat.MKM
             if (!Responsemodel.Success)
             {
                 Log(Responsemodel.Message+":"+Responsemodel.Code);
+                return;
             }
 
             Image qrcode = Tool.ImageHelper.resizeImage(Tool.ImageHelper.Base64StringToImage(Responsemodel.Data.QrBase64), 200, 200);
@@ -110,25 +121,25 @@ namespace NearWeChat.MKM
 
 
                 System.Timers.Timer Timer_CheckLogin_Heatbeat = new System.Timers.Timer();
-                Timer_CheckLogin_Heatbeat.Elapsed += Timer_CheckLogin_Elapsed1;
+                Timer_CheckLogin_Heatbeat.Elapsed += Timer_CheckLogin_Heart_Elapsed;
                 Timer_CheckLogin_Heatbeat.Interval = 10000;
                 Timer_CheckLogin_Heatbeat.Start();
             }
         }
 
-        private void Timer_CheckLogin_Elapsed1(object sender, System.Timers.ElapsedEventArgs e)
+        private void Timer_CheckLogin_Heart_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             string uuid = this.lb_Uuid.Text;
             string wwxid = this.lb_Wxid.Text;
             Facade.LoginFacde loginFacde = new Facade.LoginFacde();
-            string json = string.Empty;
-            if (!loginFacde.HeartBeat(ref json, wwxid))
+            Models.Response.ResponseBase<Models.Response.HeartBeat> ResponseModel = new Models.Response.ResponseBase<Models.Response.HeartBeat>();
+            if (!loginFacde.HeartBeat(ref ResponseModel, wwxid))
             {
                 Log("404网络异常，请检查ip或端口配置");
                 ((System.Timers.Timer)sender).Stop();
             }
 
-            Log2(json);
+            Log2(ResponseModel.Data.NextTime.ToString());
 
         }
 
@@ -146,6 +157,20 @@ namespace NearWeChat.MKM
             }
         }
 
+        private void SetConfirmUrl(string text)
+        {
+            if (lb_Wxid.InvokeRequired)
+            {
+                Action<string> action = new Action<string>(SetConfirmUrl);
+                Invoke(action, new object[] { text });
+            }
+            else
+            {
+                lb_ConfirmUrl.Text = text;
+                tb_url.Text = text;
+                //定位到最后一行
+            }
+        }
 
 
         private void Log(string text)
@@ -205,7 +230,7 @@ namespace NearWeChat.MKM
 
         private void Btn_scan_Click(object sender, EventArgs e)
         {
-
+            this.tb_APPID.Text = lb_appid.Text;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -238,17 +263,254 @@ namespace NearWeChat.MKM
                 AccountLogin();
                 return;
             }
-            DataLogin();
+            DataLogin(false);
         }
 
-        private void DataLogin()
+        private void DataLogin(bool isVerify)
         {
-           
+
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+
+
+            Models.Request.Login62Data login62Requestl = new Login62Data();
+            login62Requestl.Data62 = this.tb_62.Text;
+            login62Requestl.UserName = this.tb_username.Text;
+            login62Requestl.Password = this.tb_pwd.Text;
+            login62Requestl.ProxyIp = Config.ProxyConfig.Ip;
+            login62Requestl.ProxyUserName = Config.ProxyConfig.UserName;
+            login62Requestl.ProxyPassword = Config.ProxyConfig.UserPwd;
+
+
+            if (!isVerify)
+            {
+                Models.Response.ResponseBase<Models.Response.Login62Data> login62Response = new Models.Response.ResponseBase<Models.Response.Login62Data>();
+                if (!loginFacde.LoginBy62(ref login62Response, login62Requestl))
+                {
+                    Log(loginFacde.Msg);
+                    return ;
+                }
+                if (!login62Response.Success)
+                {
+                    Log(login62Response.Message);
+                    return ;
+                }
+
+
+                if (string.IsNullOrEmpty(login62Response.Data.accountInfo.wxid))
+                {
+                    Log(login62Response.Data.baseResponse.errMsg._string);
+
+                    Models.Response.Login62Confirm login62Confirm = Tool.XmlHelper.Deserialize<Models.Response.Login62Confirm>(login62Response.Data.baseResponse.errMsg._string.Replace("\n", ""));
+
+                    SetConfirmUrl(login62Confirm.Url);
+                    return ;
+                }
+                SetWwId(login62Response.Data.accountInfo.wxid);
+
+                return;
+            }
+
+            Models.Response.ResponseBase<Models.Response.PassVerify> PassVerifyResponse = new Models.Response.ResponseBase<Models.Response.PassVerify>();
+            if (!loginFacde.VerifyLoginBy62(ref PassVerifyResponse, login62Requestl))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+            if (!PassVerifyResponse.Success)
+            {
+                Log(PassVerifyResponse.Message);
+                return;
+            }
+            if (string.IsNullOrEmpty(PassVerifyResponse.Data.accountInfo.wxid))
+            {
+                Log(PassVerifyResponse.Data.baseResponse.errMsg._string);
+                return;
+            }
+            SetWwId(PassVerifyResponse.Data.accountInfo.wxid);
+
+
+            //TODO:调心跳
         }
+
+      
+
+
 
         private void AccountLogin()
         {
-          
+            MessageBox.Show(" 暂不支持账号密码登录！");
+        }
+
+        private void Btn_loginout_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            string json = string.Empty;
+            if (!loginFacde.LoginOut(ref json, Wwid))
+            {
+                Log("404网络异常，请检查ip或端口配置");
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_twcLogin_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            string json = string.Empty;
+            if (!loginFacde.TwiceLogin(ref json, Wwid))
+            {
+                Log("404网络异常，请检查ip或端口配置");
+                return;
+            }
+
+            Log(json);
+        }
+    
+
+        private void Btn_confim_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            ExtDeviceLoginConfirmOK extDeviceLoginConfirmOK = new ExtDeviceLoginConfirmOK
+            {
+                LoginUrl = lb_ConfirmUrl.Text,
+                WxId = string.Empty
+            };
+            string json = string.Empty;
+
+            if (!loginFacde.ConfirmLogin(ref json, extDeviceLoginConfirmOK))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+            Log(json);
+        }
+
+        private void Btn_browser_Click(object sender, EventArgs e)
+        {
+            browser.Load(this.tb_url.Text);
+        }
+
+        private void Btn_NewInit_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            string json = string.Empty;
+            if (!loginFacde.NewInit(ref json, Wwid))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_verify_Click(object sender, EventArgs e)
+        {
+            DataLogin(true);
+        }
+
+        private void Btn_native_Click(object sender, EventArgs e)
+        {
+            browser.Load(this.lb_ConfirmUrl.Text);
+        }
+
+        private void Btn_heart_Click(object sender, EventArgs e)
+        {
+            Timer_CheckLogin_Heart_Elapsed(null, null);
+        }
+
+        private void Btn_InitUser_Click(object sender, EventArgs e)
+        {
+            Facade.LoginFacde loginFacde = new Facade.LoginFacde();
+            string Wwid = this.lb_Wxid.Text;
+            Models.Request.InitUser initUser = new InitUser();
+
+            string json = string.Empty;
+
+            if (!loginFacde.NewInit(ref json, Wwid))
+            {
+                Log(loginFacde.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_Sync_Click(object sender, EventArgs e)
+        {
+            Facade.CommonFacade   commonFacade = new Facade.CommonFacade();
+            string Wwid = this.lb_Wxid.Text;
+            Models.Request.InitUser initUser = new InitUser();
+
+            string json = string.Empty;
+
+            if (!commonFacade.SyncMessage(ref json, Wwid))
+            {
+                Log(commonFacade.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_foiiow_Click(object sender, EventArgs e)
+        {
+            Facade.CommonFacade commonFacade = new Facade.CommonFacade();
+           
+            Models.Request.ForkOfficialAccount fork = new ForkOfficialAccount();
+            fork.WxId = this.lb_Wxid.Text;
+            fork.AppId = this.tb_APPID.Text;
+            string json = string.Empty;
+
+            if (!commonFacade.ForkOfficialAccountMessage(ref json, fork))
+            {
+                Log(commonFacade.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_sendtext_Click(object sender, EventArgs e)
+        {
+            Facade.MessageFacade messageFacade = new Facade.MessageFacade();
+
+            Models.Request.TxtMessage fork = new TxtMessage();
+            fork.WxId = this.lb_Wxid.Text;
+            fork.Content = this.tb_debug.Text;
+            fork.ToWxIds = new List<string>() { this.tb_towxid.Text };
+
+            string json = string.Empty;
+
+            if (!messageFacade.SendTxtMessage(ref json, fork))
+            {
+                Log(messageFacade.Msg);
+                return;
+            }
+
+            Log(json);
+        }
+
+        private void Btn_getfriendlist_Click(object sender, EventArgs e)
+        {
+            Facade.FriendFacade messageFacade = new Facade.FriendFacade();
+
+        
+             string WxId = this.lb_Wxid.Text;
+      
+
+            string json = string.Empty;
+
+            if (!messageFacade.GetContractList(ref json, WxId))
+            {
+                Log(messageFacade.Msg);
+                return;
+            }
+
+            Log(json);
         }
     }
 }

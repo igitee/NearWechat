@@ -14,13 +14,13 @@ namespace NearWeChat.MKM.Tool
     {
 
        
-        public static string HttpPost(string Url, string postDataStr)
+        public static string HttpPost(string Url, string postDataStr,string type= "application/json")
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
             request.Method = "POST";
             request.AllowAutoRedirect = false;
             request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36";
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = type;
             request.ContentLength = Encoding.UTF8.GetByteCount(postDataStr);
             
             Stream myRequestStream = request.GetRequestStream();

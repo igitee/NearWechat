@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11F8F583-F1D1-4DDC-9EC2-07F9EF0E84C0}</ProjectGuid>
+    <ProjectGuid>{B5BA4C5E-A08C-4FC3-B90E-AB4716C45911}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>NearWeChat</RootNamespace>
-    <AssemblyName>NearWeChat</AssemblyName>
+    <RootNamespace>NearWeChat.AKA</RootNamespace>
+    <AssemblyName>NearWeChat.AKA</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,23 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DB\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NearWeChat.API\NearWeChat.API.csproj">
-      <Project>{4310204e-9755-41e4-aa05-eda71735cc80}</Project>
-      <Name>NearWeChat.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NearWechat.Common\NearWechat.Common.csproj">
-      <Project>{747006c4-0fbc-4f81-9532-fb33af0264f5}</Project>
-      <Name>NearWechat.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NearWeChat.Facade\NearWeChat.Facade.csproj">
-      <Project>{c9d65676-985e-4e8e-965d-8dba7d5afdeb}</Project>
-      <Name>NearWeChat.Facade</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

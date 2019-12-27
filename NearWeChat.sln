@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearWeChat.Model", "NearWeC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearWeChat.MKM", "NearWeChat.MKM\NearWeChat.MKM.csproj", "{72DBEF03-9763-4835-86EF-96133A9DCAED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearWeChat.AKA", "NearWeChat.AKA\NearWeChat.AKA.csproj", "{B5BA4C5E-A08C-4FC3-B90E-AB4716C45911}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{72DBEF03-9763-4835-86EF-96133A9DCAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72DBEF03-9763-4835-86EF-96133A9DCAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72DBEF03-9763-4835-86EF-96133A9DCAED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BA4C5E-A08C-4FC3-B90E-AB4716C45911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BA4C5E-A08C-4FC3-B90E-AB4716C45911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BA4C5E-A08C-4FC3-B90E-AB4716C45911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BA4C5E-A08C-4FC3-B90E-AB4716C45911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
